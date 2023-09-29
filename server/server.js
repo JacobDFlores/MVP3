@@ -17,7 +17,7 @@ const server = new ApolloServer({
   context: authMiddleware,
 });
 
-app.use(cors("http://localhost:3001/"));
+app.use(cors("https://mvp3-music-verse-083b75001a32.herokuapp.com/"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
