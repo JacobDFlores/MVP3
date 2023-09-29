@@ -23,6 +23,7 @@ const SkillForm = ({ profileId }) => {
     } catch (err) {
       console.error(err);
     }
+    
   };
 
   return (

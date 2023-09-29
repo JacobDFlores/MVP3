@@ -12,6 +12,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Search from './pages/Search';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -63,6 +64,10 @@ function App() {
               <Route 
                 path="/profiles/:profileId"
                 element={<Profile />}
+              />
+              <Route 
+                path="/search" 
+                element={<Search />}
               />
             </Routes>
           </div>
