@@ -1,36 +1,52 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import '../../styles/SearchBar.css';
 import Comments from './Comments'; // Import Comments component
 import Rating from './Rating.js'; // Import Rating component
-import API from "../utils/api";
+import API from "../../utils/api";
 
 const SearchForm = (props) => {
-  const [search, setSearch] = useState('');
+//   const [search, setSearch] = useState('');
+  const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const previousSearch = '';
+//   let previousSearch = '';
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
+//   const handleFormSubmit = async (event) => {
+//     event.preventDefault();
 
-    setLoading(true);
-    setError(null);
+//     setLoading(true);
+//     setError(null);
 
-    try {
-        const response = await API.searchMusic(search);
+//     try {
+//         const response = await API.searchMusic(search);
+//         setResults(response.data.tracks.items);
+
+//         previousSearch = search;
+//         setSearch('');
+//     } catch (error) {
+//         console.error("Error fetching music:", error);
+//         setError("Failed to fetch music. Please try again.");
+//     } finally {
+//         setLoading(false);
+//     }
+//   };
+
+    const searchMusic = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+        const response = await API.searchMusic(query);
         setResults(response.data.tracks.items);
-
-        previousSearch = search;
-        setSearch('');
-    } catch (error) {
+        } catch (error) {
         console.error("Error fetching music:", error);
         setError("Failed to fetch music. Please try again.");
-    } finally {
+        } finally {
         setLoading(false);
-    }
-  };
+        }
+    };
 
   const handleRatingChange = (rating) => {
     console.log('Selected Rating:', rating);
@@ -40,7 +56,7 @@ const SearchForm = (props) => {
   return (
     <div>
       <h4>Search for your favorite music here.</h4>
-        <form
+        {/* { <form
           className="flex-row justify-center justify-space-between-md align-center"
           onSubmit={handleFormSubmit}
         >
@@ -63,7 +79,14 @@ const SearchForm = (props) => {
               {error.message}
             </div>
           )}
-        </form>
+        </form> } */}
+        <div className="search-bar">
+        <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Enter music or artist" />
+        <button onClick={searchMusic} disabled={loading}>Search</button>
+        {loading && <p>Loading...</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
+
+        </div>
         <div>
             {results.slice(0, 5).map((item) => (
                 <div className="music-card" key={item.id}>
